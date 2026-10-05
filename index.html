@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI SIP Decision Copilot — Live Prototype</title>
+<style>
+:root{--bg:#06101d;--panel:#0b1727;--panel2:#0f2035;--line:#203650;--txt:#f3f7ff;--muted:#8fa4bf;--cyan:#63e6e2;--green:#56d99a;--red:#ff6b78;--amber:#f4c96b;--shadow:0 18px 50px rgba(0,0,0,.28)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(900px 500px at 80% -10%,#163454 0,transparent 65%),linear-gradient(145deg,#06101d,#081321 60%,#050c16);color:var(--txt);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+button,input,select{font:inherit}.app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}.side{position:sticky;top:0;height:100vh;padding:25px 17px;border-right:1px solid var(--line);background:rgba(4,10,18,.88);backdrop-filter:blur(18px)}.logo{font-size:19px;font-weight:850;letter-spacing:-.6px;margin:3px 9px 28px}.logo i{font-style:normal;color:var(--cyan)}.nav{display:grid;gap:6px}.nav button{border:1px solid transparent;background:transparent;color:#91a5bf;text-align:left;padding:12px;border-radius:10px;cursor:pointer}.nav button:hover,.nav button.active{background:#12253d;border-color:#1e3855;color:white}.nav small{display:block;color:#617993;margin:17px 10px 7px;text-transform:uppercase;letter-spacing:1.3px}.sidefoot{position:absolute;bottom:20px;left:25px;color:#60748e;font-size:11px;line-height:1.5}.main{width:min(1420px,100%);margin:auto;padding:28px 30px 45px}.top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}.eyebrow{font-size:11px;color:var(--cyan);font-weight:800;text-transform:uppercase;letter-spacing:1.6px}.title{font-size:30px;font-weight:850;letter-spacing:-1.2px;margin-top:4px}.sub{color:var(--muted);font-size:13px;margin-top:6px}.live{font-size:11px;border:1px solid #265d50;color:var(--green);background:#0a211a;padding:8px 11px;border-radius:999px}.view{display:none}.view.active{display:block}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.grid2{display:grid;grid-template-columns:1.25fr .75fr;gap:14px}.card{background:linear-gradient(145deg,rgba(15,32,53,.96),rgba(8,19,32,.96));border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)}.label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}.num{font-size:26px;font-weight:850;margin-top:8px}.small{font-size:11px;color:var(--muted);line-height:1.5}.green{color:var(--green)}.red{color:var(--red)}.amber{color:var(--amber)}.cyan{color:var(--cyan)}.btn{border:0;border-radius:10px;padding:11px 15px;font-weight:800;cursor:pointer}.primary{background:var(--cyan);color:#06141d}.secondary{background:#14283f;border:1px solid #29445f;color:#e8f2ff}.danger{background:#682838;color:#fff}.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.alert{margin-top:14px;border:1px solid #643442;background:linear-gradient(115deg,#271721,#0d1827);padding:20px;border-radius:16px;display:flex;justify-content:space-between;gap:20px;align-items:center}.alert h2{margin:5px 0 7px;font-size:22px}.pill{font-size:10px;border-radius:999px;padding:5px 8px;background:#172941;color:#a9bdd6;border:1px solid #2b4360}.chart{height:290px;margin-top:12px}.chart svg{width:100%;height:100%;overflow:visible}.tabs{display:flex;gap:7px;margin:15px 0}.tab{cursor:pointer;padding:9px 12px;border:1px solid var(--line);border-radius:9px;background:#091625;color:#8ea3bd}.tab.on{background:#142a44;color:white;border-color:#31516f}.stepper{display:flex;gap:6px;flex-wrap:wrap}.step{padding:7px 9px;border-radius:999px;background:#11243a;color:#7189a5;font-size:11px}.step.done{background:#123d35;color:#b9f5dc}.metric{padding:15px;border:1px solid var(--line);border-radius:12px;background:#091625}.metric strong{display:block;font-size:16px;margin:5px 0}.metric .why{color:#a9bbd0;font-size:12px;line-height:1.5}.reason{display:flex;gap:10px;align-items:flex-start;margin:12px 0}.icon{width:27px;height:27px;border-radius:8px;background:#142a43;display:grid;place-items:center;color:var(--cyan);font-weight:800;flex:none}.optiongrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.option{cursor:pointer;min-height:180px;border:1px solid var(--line);border-radius:14px;padding:16px;background:#091625;transition:.15s}.option:hover,.option.selected{border-color:var(--cyan);transform:translateY(-2px);background:#0e2135}.option h3{margin:0 0 7px}.option .projection{font-size:23px;font-weight:850;margin:17px 0 4px}.sim{display:grid;grid-template-columns:.85fr 1.15fr;gap:14px}.control{padding:17px;border:1px solid var(--line);border-radius:13px;background:#091625;margin-top:12px}.control:first-child{margin-top:0}.range{width:100%;accent-color:var(--cyan);cursor:pointer}.select{width:100%;margin-top:8px;padding:11px;border-radius:9px;background:#071322;color:#fff;border:1px solid #2a425f}.result{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:15px 0}.result .metric{background:#0a1829}.bigresult{font-size:31px;font-weight:900}.barwrap{margin-top:20px}.barrow{display:grid;grid-template-columns:105px 1fr 65px;gap:9px;align-items:center;margin:10px 0;font-size:11px;color:#a8bad0}.bar{height:10px;background:#15283e;border-radius:99px;overflow:hidden}.fill{height:100%;background:var(--cyan);border-radius:99px}.fill.redfill{background:var(--red)}.callout{padding:15px;border-radius:12px;background:#0a1e22;border:1px solid #24594d;line-height:1.55}.receipt{border-left:3px solid var(--cyan);padding:15px 0 15px 17px}.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);align-items:center;justify-content:center;padding:18px;z-index:10}.modal.show{display:flex}.modalbox{width:min(650px,100%);background:#0b1829;border:1px solid #2d4663;border-radius:17px;padding:23px}.x{float:right;background:none;border:0;color:#94a8c1;font-size:22px;cursor:pointer}.notice{font-size:10px;color:#71869e;margin-top:17px;line-height:1.5}.toast{position:fixed;right:22px;bottom:22px;background:#12273e;border:1px solid #31506d;padding:12px 15px;border-radius:10px;display:none;box-shadow:var(--shadow);z-index:20}.toast.show{display:block}@media(max-width:950px){.app{grid-template-columns:1fr}.side{position:relative;height:auto}.nav{grid-template-columns:repeat(3,1fr)}.sidefoot{display:none}.grid4,.optiongrid{grid-template-columns:1fr 1fr}.grid2,.sim{grid-template-columns:1fr}}@media(max-width:600px){.main{padding:18px}.top{flex-direction:column;gap:12px}.grid4,.grid3,.optiongrid,.result{grid-template-columns:1fr}.nav{grid-template-columns:1fr 1fr}.alert{flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+<div class="logo">SIP<span>•</span>Copilot</div>
+<div class="nav">
+<button class="active" onclick="go('dashboard',this)">◈ Dashboard</button>
+<button onclick="go('analysis',this)">⌁ Why this happened</button>
+<button onclick="go('evidence',this)">◎ Evidence</button>
+<button onclick="go('options',this)">◇ Compare options</button>
+<button onclick="go('simulator',this)">◌ What-if simulator</button>
+<button onclick="go('receipt',this)">✓ Decision receipt</button>
+</div>
+<div class="sidefoot">Aarav · Moderate risk<br>Demo investor profile<br><br>Illustrative data only</div>
+</aside>
+
+<main class="main">
+<header class="top">
+<div><div class="eyebrow">AI-powered SIP Decision Copilot</div><div class="title">Don't let a red number make a long-term decision.</div><div class="sub">A guided decision layer that explains the impact of changing a SIP before the investor acts.</div></div>
+<div class="live">● LIVE PROTOTYPE</div>
+</header>
+
+<section id="dashboard" class="view active">
+<div class="grid4">
+<div class="card"><div class="label">Monthly SIP</div><div class="num">₹10,000</div><div class="small">Current contribution</div></div>
+<div class="card"><div class="label">Current corpus</div><div class="num">₹7.20L</div><div class="small">28.8% of ₹25L goal</div></div>
+<div class="card"><div class="label">Portfolio P&L</div><div class="num red">−13.4%</div><div class="small">Critical limit: −10%</div></div>
+<div class="card"><div class="label">Goal</div><div class="num">₹25L</div><div class="small">6-year horizon · Moderate risk</div></div>
+</div>
+<div class="alert">
+<div><div class="eyebrow" style="color:var(--red)">CRITICAL ALERT · GOAL IMPACT DETECTED</div><h2>Your portfolio is down 13.4%.</h2><div class="small">Before you pause, reduce or redeem, let's separate market movement from fund-specific weakness and show what each choice does to your goal.</div></div>
+<button class="btn primary" onclick="go('analysis',document.querySelectorAll('.nav button')[1])">Analyse before I act →</button>
+</div>
+<div class="grid2" style="margin-top:14px">
+<div class="card"><div class="row" style="justify-content:space-between"><div><div class="label">Portfolio trend</div><div style="font-weight:800;margin-top:5px">Critical threshold crossed</div></div><span class="pill">10-day demo series</span></div>
+<div class="chart" id="pnl"></div></div>
+<div class="card"><div class="label">How Copilot works</div><div class="stepper" style="margin:13px 0"><span class="step done">1 Trigger</span><span class="step done">2 Analyse</span><span class="step">3 Evidence</span><span class="step">4 Options</span><span class="step">5 Simulate</span><span class="step">6 Decide</span></div><div class="callout"><b>AI does not tell you to buy or sell.</b><br><span class="small">It makes the consequences and evidence understandable so the user can decide.</span></div></div>
+</div>
+</section>
+
+<section id="analysis" class="view">
+<div class="card"><div class="eyebrow">Step 1 · Explain the alert</div><h2 style="margin:5px 0 4px">Why is the portfolio down?</h2><div class="sub">The Copilot checks three layers before presenting an action.</div>
+<div class="grid3" style="margin-top:16px">
+<div class="metric"><span class="pill">MARKET</span><strong>−7%</strong><div class="why">Market index has weakened. This explains part of the move.</div></div>
+<div class="metric"><span class="pill">FUND VS BENCHMARK</span><strong class="red">−14%</strong><div class="why">The fund is down more than the relevant market benchmark.</div></div>
+<div class="metric"><span class="pill">FUNDAMENTALS</span><strong class="amber">MONITOR</strong><div class="why">Revenue ↑, profit ↑, debt ↑. Evidence is mixed, not a single-direction signal.</div></div>
+</div>
+<div class="card" style="margin-top:14px;background:#081522"><div class="label">AI interpretation</div><p style="line-height:1.7;margin-bottom:6px">“The market has weakened, but this fund is underperforming its relevant benchmark. Current evidence does not indicate that market movement alone explains the full decline.”</p><div class="small">Demo evidence. Final product should show source, period and as-of date for every series.</div></div>
+<div class="row" style="margin-top:14px"><button class="btn secondary" onclick="go('dashboard',document.querySelectorAll('.nav button')[0])">← Dashboard</button><button class="btn primary" onclick="go('evidence',document.querySelectorAll('.nav button')[2])">See evidence →</button></div>
+</div>
+</section>
+
+<section id="evidence" class="view">
+<div class="grid2">
+<div class="card"><div class="eyebrow">Step 2 · Evidence</div><h2>What is happening underneath the fund?</h2><div class="grid3" style="margin-top:15px">
+<div class="metric"><span class="label">Revenue</span><strong class="green">↑ Strength</strong></div>
+<div class="metric"><span class="label">Profit</span><strong class="green">↑ Strength</strong></div>
+<div class="metric"><span class="label">Debt</span><strong class="amber">↑ Monitor</strong></div>
+<div class="metric"><span class="label">Cash</span><strong>→ Monitor</strong></div>
+<div class="metric"><span class="label">Operating cost</span><strong class="amber">↑ Monitor</strong></div>
+<div class="metric"><span class="label">Receivables</span><strong class="red">↑ Risk</strong></div>
+</div><div class="chart" id="fund"></div></div>
+<div class="card"><div class="label">Long-term holder context</div><h2>History ≠ promise.</h2><p>Your holding: <b>14 months, −13.4%</b></p><div class="barwrap">
+<div class="barrow"><span>1Y</span><div class="bar"><div class="fill" style="width:58%"></div></div><b>58%</b></div>
+<div class="barrow"><span>3Y</span><div class="bar"><div class="fill" style="width:71%"></div></div><b>71%</b></div>
+<div class="barrow"><span>5Y</span><div class="bar"><div class="fill" style="width:83%"></div></div><b>83%</b></div>
+<div class="barrow"><span>7Y</span><div class="bar"><div class="fill" style="width:91%"></div></div><b>91%</b></div>
+<div class="barrow"><span>10Y</span><div class="bar"><div class="fill" style="width:96%"></div></div><b>96%</b></div>
+</div><div class="notice">Illustrative rolling windows. Final version should use verified returns and a sufficiently large, consent-based anonymised cohort.</div></div>
+</div>
+<div class="row" style="margin-top:14px"><button class="btn primary" onclick="go('options',document.querySelectorAll('.nav button')[3])">Compare my options →</button></div>
+</section>
+
+<section id="options" class="view">
+<div class="card"><div class="eyebrow">Step 3 · Compare</div><h2 style="margin:5px 0">What happens to my ₹25L goal?</h2><div class="sub">Each scenario uses the prototype assumptions: corpus ₹7.2L · 6 years · 12% nominal return.</div>
+<div class="optiongrid" style="margin-top:16px">
+<div class="option selected" onclick="pick(this,'Continue',25.2,0)"><span class="pill">LOWEST GOAL GAP</span><h3>Continue</h3><div class="small">Max compounding · volatility accepted</div><div class="projection">₹25.2L</div><div class="small green">Goal gap: ₹0</div></div>
+<div class="option" onclick="pick(this,'Reduce',20,5)"><span class="pill">LOWER OUTFLOW</span><h3>Reduce</h3><div class="small">Lower monthly outflow · slower growth</div><div class="projection">₹20.0L</div><div class="small red">Goal gap: ₹5.0L</div></div>
+<div class="option" onclick="pick(this,'Pause 3M',24.6,.4)"><span class="pill">SHORT RELIEF</span><h3>Pause 3M</h3><div class="small">Cash relief · contribution gap</div><div class="projection">₹24.6L</div><div class="small amber">Goal gap: ₹0.4L</div></div>
+<div class="option" onclick="pick(this,'Redeem',9.1,15.9)"><span class="pill">FULL LIQUIDITY</span><h3>Redeem</h3><div class="small">Liquidity · locks in loss / exit load</div><div class="projection">₹9.1L</div><div class="small red">Goal gap: ₹15.9L</div></div>
+</div>
+<div class="callout" style="margin-top:14px" id="choice"><b>Selected: Continue</b> · Projected corpus ₹25.2L · Goal gap ₹0.0L</div>
+<button class="btn primary" style="margin-top:13px" onclick="go('simulator',document.querySelectorAll('.nav button')[4])">Test the decision live →</button>
+</div>
+</section>
+
+<section id="simulator" class="view">
+<div class="sim">
+<div class="card"><div class="eyebrow">Step 4 · What-if simulator</div><h2>Don't change the SIP. Test it first.</h2><div class="control"><div class="label">Monthly SIP</div><div class="bigresult cyan" id="sipOut">₹10,000</div><input id="sip" class="range" type="range" min="5000" max="20000" step="1000" value="10000"><div class="row" style="justify-content:space-between"><span class="small">₹5K</span><span class="small">₹20K</span></div></div>
+<div class="control"><div class="label">Pause duration</div><select id="pause" class="select"><option value="0">No pause</option><option value="1">Pause 1 month</option><option value="3">Pause 3 months</option><option value="6">Pause 6 months</option></select></div>
+<div class="control"><div class="label">Return assumption</div><select id="ret" class="select"><option value="12">12% nominal p.a. — prototype default</option><option value="10">10% nominal p.a.</option><option value="8">8% nominal p.a.</option></select></div>
+<div class="notice">This is a scenario calculator, not a forecast or guaranteed return. It intentionally exposes assumptions.</div></div>
+<div class="card"><div class="label">Your live output</div><div class="result"><div class="metric"><div class="label">Projected corpus</div><div class="bigresult" id="corp">₹25.2L</div></div><div class="metric"><div class="label">Goal</div><div class="bigresult">₹25.0L</div></div><div class="metric"><div class="label">Goal status</div><div class="bigresult green" id="status">Ahead</div></div></div>
+<div id="simbar"></div><div class="callout" style="margin-top:17px" id="simtext"></div>
+<div class="row" style="margin-top:15px"><button class="btn secondary" onclick="go('options',document.querySelectorAll('.nav button')[3])">← Compare</button><button class="btn primary" onclick="saveReceipt()">Save scenario & view receipt →</button></div></div>
+</div>
+</section>
+
+<section id="receipt" class="view">
+<div class="card"><div class="eyebrow">Step 5 · Decision receipt</div><h2>Your scenario, clearly recorded.</h2><div class="grid3" style="margin-top:16px">
+<div class="metric"><div class="label">Scenario</div><strong id="rScenario">Continue</strong></div>
+<div class="metric"><div class="label">Monthly SIP</div><strong id="rSip">₹10,000</strong></div>
+<div class="metric"><div class="label">Pause</div><strong id="rPause">None</strong></div>
+</div>
+<div class="receipt" style="margin-top:18px"><div class="label">Projected outcome</div><div class="bigresult" id="rCorpus">₹25.2L</div><p id="rCopy" style="line-height:1.7">The selected scenario keeps the goal on trajectory under the stated assumptions.</p></div>
+<div class="notice">No BUY / SELL command · Assumptions visible · Data freshness should be timestamped · Illustrative demo only.</div>
+<button class="btn primary" style="margin-top:15px" onclick="go('dashboard',document.querySelectorAll('.nav button')[0])">Return to dashboard</button>
+</div>
+</section>
+</main>
+</div>
+
+<div id="toast" class="toast"></div>
+<script>
+const nav=()=>document.querySelectorAll('.nav button');
+function go(id,btn){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById(id).classList.add('active');nav().forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
+function svgLine(el,labels,data,threshold){let W=900,H=260,p=38;let min=Math.min(...data,threshold)-2,max=Math.max(...data)+2;let x=i=>p+i*(W-2*p)/(data.length-1),y=v=>H-p-(v-min)*(H-2*p)/(max-min);let pts=data.map((v,i)=>`${x(i)},${y(v)}`).join(' ');let tY=y(threshold);el.innerHTML=`<svg viewBox="0 0 ${W} ${H}"><line x1="${p}" y1="${tY}" x2="${W-p}" y2="${tY}" stroke="#ff6b78" stroke-dasharray="7 6"/><text x="${W-p-80}" y="${tY-7}" fill="#ff6b78" font-size="12">critical</text><polyline points="${pts}" fill="none" stroke="#63e6e2" stroke-width="4"/><line x1="${p}" y1="${H-p}" x2="${W-p}" y2="${H-p}" stroke="#203650"/>${data.map((v,i)=>`<circle cx="${x(i)}" cy="${y(v)}" r="4" fill="#63e6e2"/>`).join('')}<text x="${p}" y="${H-10}" fill="#7189a5" font-size="11">${labels[0]}</text><text x="${W-p-35}" y="${H-10}" fill="#7189a5" font-size="11">${labels.at(-1)}</text></svg>`}
+svgLine(document.getElementById('pnl'),['D1','D2','D3','D4','D5','D6','D7','D8','D9','D10'],[.8,-.5,-1.8,-3.4,-5.2,-7.1,-8.6,-10.4,-12.1,-13.4],-10);
+svgLine(document.getElementById('fund'),['Y-6','Y-5','Y-4','Y-3','Y-2','Y-1','Latest'],[100,112,126,141,158,175,194],90);
+let selected={name:'Continue',corpus:25.2,gap:0};
+function pick(el,name,corpus,gap){document.querySelectorAll('.option').forEach(x=>x.classList.remove('selected'));el.classList.add('selected');selected={name,corpus,gap};document.getElementById('choice').innerHTML=`<b>Selected: ${name}</b> · Projected corpus ₹${corpus.toFixed(1)}L · Goal gap ₹${gap.toFixed(1)}L`}
+function calc(){let sip=+document.getElementById('sip').value,pause=+document.getElementById('pause').value,annual=+document.getElementById('ret').value;let r=Math.pow(1+annual/100,1/12)-1,c=7.2;for(let m=1;m<=72;m++){c*=1+r;if(m>pause)c+=sip/100000}return c}
+function update(){let sip=+document.getElementById('sip').value,pause=+document.getElementById('pause').value,c=calc(),diff=c-25;document.getElementById('sipOut').textContent='₹'+sip.toLocaleString('en-IN');document.getElementById('corp').textContent='₹'+c.toFixed(1)+'L';let st=document.getElementById('status');st.textContent=diff>=0?'Ahead':'Gap';st.className='bigresult '+(diff>=0?'green':'red');document.getElementById('simtext').innerHTML=diff>=0?`<b>Goal remains on track.</b><br>At ₹${sip.toLocaleString('en-IN')}/month with a ${pause}-month pause and the selected return assumption, the model reaches <b>₹${c.toFixed(1)}L</b> by year 6 — <span class="green">₹${diff.toFixed(1)}L ahead</span> of the ₹25L goal.`:`<b>Goal shortfall detected.</b><br>The model reaches <b>₹${c.toFixed(1)}L</b> by year 6 — <span class="red">₹${Math.abs(diff).toFixed(1)}L below</span> the ₹25L goal. Try increasing SIP or reducing the pause to test alternatives.`;document.getElementById('simbar').innerHTML=`<div class="barrow"><span>Goal ₹25L</span><div class="bar"><div class="fill" style="width:100%"></div></div><b>₹25.0L</b></div><div class="barrow"><span>Projected</span><div class="bar"><div class="fill ${diff<0?'redfill':''}" style="width:${Math.min(100,c/25*100)}%"></div></div><b>₹${c.toFixed(1)}L</b></div>`}
+['sip','pause','ret'].forEach(id=>document.getElementById(id).addEventListener('input',update));['pause','ret'].forEach(id=>document.getElementById(id).addEventListener('change',update));
+function saveReceipt(){let sip=+document.getElementById('sip').value,pause=+document.getElementById('pause').value,c=calc(),diff=c-25;document.getElementById('rScenario').textContent=selected.name;document.getElementById('rSip').textContent='₹'+sip.toLocaleString('en-IN');document.getElementById('rPause').textContent=pause?pause+' month'+(pause>1?'s':''):'None';document.getElementById('rCorpus').textContent='₹'+c.toFixed(1)+'L';document.getElementById('rCopy').innerHTML=diff>=0?`Under the displayed assumptions, this scenario projects <b>₹${c.toFixed(1)}L</b>, keeping the goal <b class="green">₹${diff.toFixed(1)}L ahead</b>.`: `Under the displayed assumptions, this scenario projects <b>₹${c.toFixed(1)}L</b>, leaving a <b class="red">₹${Math.abs(diff).toFixed(1)}L gap</b>.`;go('receipt',nav()[5]);toast('Scenario saved to the decision receipt')}
+function toast(t){let x=document.getElementById('toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),2200)}
+update();
+</script>
+</body>
+</html>
